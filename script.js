@@ -29,23 +29,50 @@ function addTodo(text){
     </li>
   `);
 
+  // Adding event listener
   list.addEventListener('click', event => {
+    // if the target has checklist mark
     if (event.target.classList.contains('js-tick')) {
       const itemKey = event.target.parentElement.dataset.key;
       toggleDone(itemKey);
     }
-  });
 
-  function toggleDone(key){
-    const index = todoItems.findIndex(item => item.id === Number(key));
-    todoItems[index].checked = !todoItems[index].checked;
-
-    const item = document.querySelector(`[data-key='${key}']`);
-    if(todoItems[index].checked){
-      item.classList.add('done');
-    } else {
-      item.classList.remove('done');
+    // deleting the array
+    if (event.target.classList.contains('js-delete-todo')) {
+      const itemKey = event.target.parentElement.dataset.key;
+      deleteTodo(itemKey);
     }
+  });
+}
+
+// this function used for deleting array with particular id
+function deleteTodo(key){
+  // filter() used for create new array with all array elements that pass a test.
+  // so the object with key is eliminated in here or removed
+  todoItems = todoItems.filter(item => item.id !== Number(key));
+  // using for deleting the item on the DOM
+  const item = document.querySelector(`[data-key='${key}']`);
+  // remove() used for remove object from the tree it belongs to.
+  item.remove();
+}
+
+// function for toggling the checkbox
+// this function is confusing, but it used for removing and adding done class on the tag
+function toggleDone(key){
+  // selecting array with particular id
+  const index = todoItems.findIndex(item => item.id === Number(key));
+  // toggle the value of checked property to the opposite value
+  // todoItems.checked = true = todoItems.checked = false
+  todoItems[index].checked = !todoItems[index].checked;
+
+  // Selecting a query with data-key=id
+  const item = document.querySelector(`[data-key='${key}']`);
+  if(todoItems[index].checked){
+    // if to do item checked = true give it a line-throught
+    item.classList.add('done');
+  } else {
+    // if not remove line-through
+    item.classList.remove('done');
   }
 }
 
