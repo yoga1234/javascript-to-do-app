@@ -13,7 +13,17 @@ function addTodo(text){
   //inserting data into todoItems array
   todoItems.push(todo);
   // print into console
-  console.log(todoItems);
+  const list = document.querySelector('.js-todo-list');
+  list.insertAdjacentHTML('beforeend',`
+    <li class="todo-item" data-key="${todo.id}">
+      <input id="${todo.id}" type="checkbox"/>
+      <label for="${todo.id}" class="tick js-tick"></label>
+      <span>${todo.text}</span>
+      <button class="delete-todo js-delete-todo">
+
+      </button>
+    </li>
+  `);
 }
 
 // selecting a form named js-form
