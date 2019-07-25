@@ -27,6 +27,7 @@ form.addEventListener('submit', event => {
   const input = document.querySelector('.js-todo-input');
 
   // removing whitespace from both ends of string(space, tab, no-break space, etc)
+  // and save it in a new variable called text
   const text = input.value.trim();
 
   //check if user inserting data
